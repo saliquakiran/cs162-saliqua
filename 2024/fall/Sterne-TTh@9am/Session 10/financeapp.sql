@@ -111,23 +111,23 @@ AND strftime('%Y-%m', transaction_date) = '2024-01';
 
 -- Query Results
 -- Query 1
-Bank Account  | 1500.00
-Credit Card   | -500.00
+-- Bank Account  | 1500.00
+-- Credit Card   | -500.00
 
 -- Query 2
-Rent          | -1800.00
-Groceries     | -350.00
-Entertainment | -150.00
+-- Rent          | -1800.00
+-- Groceries     | -350.00
+-- Entertainment | -150.00
 
 -- Query 3
-Total Income  | 5000.00
+-- Total Income  | 5000.00
 
 -- Query 4
-2024-01-15 | 2000.00  | Income  | Salary
-2024-01-20 | -800.00   | Expense | Rent
+-- 2024-01-15 | 2000.00  | Income  | Salary
+-- 2024-01-20 | -800.00   | Expense | Rent
 
 -- Query 5
-Total Expenditure | -1900.00
+-- Total Expenditure | -2300.00
 
 
 ----- Side Note: Convert Python code cell to a SQL one; add your SQL code between line 3 and line 4, or replace line 3.

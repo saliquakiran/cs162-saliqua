@@ -119,22 +119,22 @@ COMMIT;
 -- This transaction checks if a doctor is available at the given date and time before adding a new appointment.
 -- If the doctor already has an appointment at the same time, the transaction rolls back.
 BEGIN TRANSACTION;
-    -- Insert a new appointment for patient 1 with doctor 2.
-    INSERT INTO Appointments (PatientID, DoctorID, AppointmentDate, AppointmentTime, Notes)
-    VALUES (1, 2, '2024-02-15', '10:30', 'Follow-up visit');
+    -- Check for scheduling conflicts before inserting.
+    SELECT COUNT(*) AS ConflictCount
+    FROM Appointments
+    WHERE DoctorID = 2
+    AND AppointmentDate = '2024-02-15'
+    AND AppointmentTime = '10:30';
 
-    -- Check for scheduling conflicts.
-    IF EXISTS (
-        SELECT 1 FROM Appointments 
-        WHERE DoctorID = 2 
-        AND AppointmentDate = '2024-02-15' 
-        AND AppointmentTime = '10:30'
-    )
-    THEN
-        ROLLBACK;
-    ELSE
-        COMMIT;
-    END IF;
+    -- Insert the appointment if there are no conflicts.
+    INSERT INTO Appointments (PatientID, DoctorID, AppointmentDate, AppointmentTime, Notes)
+    SELECT 1, 2, '2024-02-15', '10:30', 'Follow-up visit'
+    WHERE (SELECT COUNT(*) 
+           FROM Appointments 
+           WHERE DoctorID = 2 
+           AND AppointmentDate = '2024-02-15' 
+           AND AppointmentTime = '10:30') = 0;
+COMMIT;
 
 -- Explanation: This transaction ensures that the appointment scheduling respects a doctor's availability.
 -- If a conflict is found, the new appointment is not added, preventing double-booking.

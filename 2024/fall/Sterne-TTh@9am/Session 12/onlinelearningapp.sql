@@ -117,18 +117,17 @@ COMMIT;
 -- Transaction 2: Add a new enrollment with a rollback condition.
 -- This transaction adds a new enrollment and checks a simulated condition for over-capacity.
 BEGIN TRANSACTION;
-    -- Enroll a new student in a course.
+
+    -- Check the number of enrollments for the course before proceeding.
+    -- This SELECT will only return a count, which you should check in your application.
+    SELECT COUNT(*) AS EnrollmentCount FROM Enrollments WHERE CourseID = 3;
+
+    -- If EnrollmentCount is <= 30, proceed with this INSERT. 
+    -- Note: This decision should be made by the application interacting with the SQLite database.
     INSERT INTO Enrollments (StudentID, CourseID, EnrollmentDate)
     VALUES (2, 3, '2024-04-01');
 
-    -- Simulate a capacity check: rollback if the course has more than 30 enrollments.
-    -- Replace the condition with an actual capacity constraint in a real system.
-    IF ((SELECT COUNT(*) FROM Enrollments WHERE CourseID = 3) > 30)
-    THEN
-        ROLLBACK;
-    ELSE
-        COMMIT;
-    END IF;
+COMMIT;
 
 -- Explanation: This transaction ensures that enrollments remain valid and the course capacity 
 -- isn't exceeded. The rollback prevents adding the enrollment if the course is already full.

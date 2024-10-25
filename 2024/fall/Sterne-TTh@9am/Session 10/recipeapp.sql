@@ -138,25 +138,25 @@ JOIN Meal_Plans mp ON m.meal_plan_id = mp.meal_plan_id
 WHERE mp.user_id = 2 AND strftime('%Y-%m', m.meal_date) = '2024-01';
 
 -- Query Results:
---1. What meals are planned for the week (User ID: 1)?
-2024-01-02 | Pasta     | Dinner
-2024-01-03 | Salad     | Lunch
-2024-01-04 | Omelette  | Breakfast
+-- 1. What meals are planned for the week (User ID: 1)?
+-- 2024-01-02 | Pasta     | Dinner
+-- 2024-01-03 | Salad     | Lunch
+-- 2024-01-04 | Omelette  | Breakfast
 
 -- 2. What ingredients are required for the "Pasta" recipe?
-Pasta         | 200.00 | grams
-Tomato Sauce  | 1.00   | cups
+-- Pasta         | 200.00 | grams
+-- Tomato Sauce  | 1.00   | cups
 
 --3. What are the recipes in Meal Plan 1?
-Pasta
-Salad
-Omelette
+-- Pasta
+-- Salad
+-- Omelette
 
 --4. What are the total ingredients needed for the week for User ID 1?
-Pasta         | 200.00 | grams
-Tomato Sauce  | 1.00   | cups
-Lettuce       | 5.00   | leaves
-Eggs          | 3.00   | units
+-- Pasta         | 200.00 | grams
+-- Tomato Sauce  | 1.00   | cups
+-- Lettuce       | 5.00   | leaves
+-- Eggs          | 3.00   | units
 
 --5. What is the total number of meals planned for User ID 2 in January 2024?
-Total Meals: 1
+-- Total Meals: 1

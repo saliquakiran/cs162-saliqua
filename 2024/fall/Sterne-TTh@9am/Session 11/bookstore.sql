@@ -1,6 +1,13 @@
 -- Enable foreign key support
 PRAGMA foreign_keys = ON;
 
+-- 6. Suppliers Table
+CREATE TABLE Suppliers (
+    SupplierID INTEGER PRIMARY KEY AUTOINCREMENT,
+    SupplierName TEXT NOT NULL,
+    ContactEmail TEXT NOT NULL
+);
+
 -- 1. Books Table
 CREATE TABLE Books (
     BookID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,13 +54,6 @@ CREATE TABLE OrderItems (
     FOREIGN KEY (BookID) REFERENCES Books(BookID)
 );
 
--- 6. Suppliers Table
-CREATE TABLE Suppliers (
-    SupplierID INTEGER PRIMARY KEY AUTOINCREMENT,
-    SupplierName TEXT NOT NULL,
-    ContactEmail TEXT NOT NULL
-);
-
 -- 7. Shipments Table
 CREATE TABLE Shipments (
     ShipmentID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -64,6 +64,14 @@ CREATE TABLE Shipments (
     FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID),
     FOREIGN KEY (BookID) REFERENCES Books(BookID)
 );
+
+-- Insert sample data into Suppliers
+INSERT INTO Suppliers (SupplierName, ContactEmail) VALUES 
+('Penguin Random House', 'contact@penguinrandomhouse.com'),
+('HarperCollins', 'info@harpercollins.com'),
+('Simon & Schuster', 'contact@simonandschuster.com'),
+('Macmillan', 'info@macmillan.com'),
+('Hachette Book Group', 'contact@hachette.com');
 
 -- Insert sample data into Books
 INSERT INTO Books (Title, Author, ISBN, Price, SupplierID) VALUES 
@@ -108,14 +116,6 @@ INSERT INTO OrderItems (OrderID, BookID, Quantity, PriceAtPurchase) VALUES
 (4, 3, 2, 12.99),
 (5, 2, 3, 9.99),
 (5, 5, 2, 8.99);
-
--- Insert sample data into Suppliers
-INSERT INTO Suppliers (SupplierName, ContactEmail) VALUES 
-('Penguin Random House', 'contact@penguinrandomhouse.com'),
-('HarperCollins', 'info@harpercollins.com'),
-('Simon & Schuster', 'contact@simonandschuster.com'),
-('Macmillan', 'info@macmillan.com'),
-('Hachette Book Group', 'contact@hachette.com');
 
 -- Insert sample data into Shipments
 INSERT INTO Shipments (SupplierID, BookID, Quantity) VALUES 

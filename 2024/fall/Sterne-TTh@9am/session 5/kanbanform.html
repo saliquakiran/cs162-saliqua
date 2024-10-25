@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="kanbanform.css">
+</head>
+<body>
+    <header>
+        <h1>Kanban Board</h1>
+        <a href="#" class="logout">Logout</a>
+    </header>
+
+    <main>
+        <div class="kanban-board">
+            <div class="column">
+                <h2>Backlog</h2>
+                <ul id="backlog">
+                    <li>Task 1: CS162</li>
+                    <li>Task 2: Research</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h2>To Do</h2>
+                <ul id="todo">
+                    <li>Task 3: CS156</li>
+                    <li>Task 4: Write project plan</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h2>In Progress</h2>
+                <ul id="in-progress">
+                    <li>Task 5: Meeting 1</li>
+                    <li>Task 6: Meeting 2</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h2>Review</h2>
+                <ul id="review">
+                    <li>Task 7: Code review</li>
+                    <li>Task 8: Debugging</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h2>Done</h2>
+                <ul id="done">
+                    <li>Task 9: Project kickoff</li>
+                    <li>Task 10: Rest</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Task Submission Form -->
+        <form id="task-form">
+            <h2>Add New Task</h2>
+
+            <label for="task-name">Task Name:</label><br>
+            <input type="text" id="task-name" name="task-name" required><br><br>
+
+            <label for="task-desc">Task Description:</label><br>
+            <textarea id="task-desc" name="task-desc" rows="4" cols="50" required></textarea><br><br>
+
+            <label for="column">Assign to Column:</label><br>
+            <select id="column" name="column">
+                <option value="backlog">Backlog</option>
+                <option value="todo">To Do</option>
+                <option value="in-progress">In Progress</option>
+                <option value="review">Review</option>
+                <option value="done">Done</option>
+            </select><br><br>
+
+            <input type="submit" value="Add Task">
+        </form>
+
+    </main>
+
+    <footer>
+        <p>Kanban Board - Project Management Tool © 2024</p>
+    </footer>
+
+    <script>
+        // JavaScript to handle form submission and add tasks to the board
+        document.getElementById('task-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            // Get task details from the form
+            const taskName = document.getElementById('task-name').value;
+            const taskDesc = document.getElementById('task-desc').value;
+            const column = document.getElementById('column').value;
+
+            // Create a new list item for the task
+            const taskItem = document.createElement('li');
+            taskItem.textContent = `${taskName}: ${taskDesc}`;
+
+            // Add the task to the selected column
+            const columnElement = document.getElementById(column);
+            columnElement.appendChild(taskItem);
+
+            // Clear the form fields after submission
+            document.getElementById('task-form').reset();
+        });
+    </script>
+</body>
+</html>
+
+# Normally, when a form is submitted in HTML, the browser sends the form data to a server and reloads the page. However, in this case, we don’t have a backend server to process the form data. 
+# JavaScript was therefore used, which allows us to prevent the default form submission behavior (of page not working when a task was added) and handle everything on the client-side, keeping the page static.
+# As guided by ChatGpt, JavaScript allows real-time updates by allowing the user to add new tasks to the Kanban board dynamically. Instead of reloading the page, it directly manipulates the Document Object Model (DOM) to insert new tasks into the appropriate column.
